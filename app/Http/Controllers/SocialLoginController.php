@@ -29,14 +29,14 @@ class SocialLoginController extends Controller
             'nickname' => $socialLoginUser->nickname ?? null,
             'email' => $socialLoginUser->email,
             'profile' => $socialLoginUser->avatar,
-            'provider' => $provider,
+            'provider' => $provider, //provider => google | github
             'provider_id' => $socialLoginUser->id,
             'provider_token' => $socialLoginUser->token,
         ]);
 
         Auth::login($user);
 
-        return redirect('/dashboard');
+        return redirect()->route('user#homePage');
 
     }
 };

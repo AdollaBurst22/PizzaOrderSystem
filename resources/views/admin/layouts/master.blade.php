@@ -81,8 +81,8 @@
             </li>
 
             <li class="nav-item">
-                <form action="" method="post">
-
+                <form action="{{ route('logout') }}" method="post">
+                    @csrf
                     <span class="nav-link">
                         <button type="submit" class="btn bg-dark text-white"><i
                                 class="fa-solid fa-right-from-bracket"></i> Logout</button>
@@ -143,8 +143,8 @@
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <span class="dropdown-item" data-toggle="modal" data-target="#logoutModal">
-                                    <form action="" method="post">
-
+                                    <form action="{{ route('logout') }}" method="post">
+                                        @csrf
                                         <input type="submit" class="btn btn-dark text-white w-100" value="Logout">
                                     </form>
                                 </span>
@@ -161,11 +161,11 @@
                 Here .................
 
                 <!-- Bootstrap core JavaScript-->
-                <script src="{{ asset('admin/vendor/jquery/jquery.min.js') }}{{ asset() }}"></script>
+                <script src="{{ asset('admin/vendor/jquery/jquery.min.js') }}"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
                     integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
                     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-                <script src="{{ asset() }}'admin/vendor/bootstrap/js/bootstrap.bundle.min.js'"></script>
+                <script src="{{ asset('admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
                 <!-- Core plugin JavaScript-->
                 <script src="{{ asset('admin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>

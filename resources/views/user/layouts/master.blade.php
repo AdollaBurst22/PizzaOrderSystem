@@ -79,8 +79,8 @@
                                 <a href="#" class="dropdown-item my-2">Edit Profile</a>
                                 <a href="#" class="dropdown-item my-2">Change Password</a>
                                 <a href="#" class="dropdown-item my-2">
-                                    <form action="" method="post">
-
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
                                         <input type="submit" value="Logout"
                                             class="btn btn-outline-success rounded w-100 mb-3">
                                     </form>

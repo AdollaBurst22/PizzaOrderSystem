@@ -28,7 +28,15 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        //direct to admin dashboard if the user role is admin || superadmin
+        if($request->user()->role == 'superadmin' || $request->user()->role == 'admin'){
+            return redirect()->intended(route('admin#mainDashboard', absolute: false));
+        };
+
+        //direct to admin dashboard if the user role is admin || superadmin
+        if($request->user()->role == 'user'){
+            return redirect()->intended(route('user#homePage', absolute: false));
+        };
     }
 
     /**
@@ -42,6 +50,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('login');
     }
 }
