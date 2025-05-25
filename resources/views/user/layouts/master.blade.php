@@ -32,8 +32,6 @@
     <!-- Template Stylesheet -->
     <link href="{{ asset('user/css/style.css') }}" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ asset('user/css/custom.css') }}">
-
 </head>
 
 <body>
@@ -73,7 +71,7 @@
                             <a href="#" class="nav-link dropdown-toggle my-auto mt-2" data-bs-toggle="dropdown">
                                 <img src=" {{ asset('user/img/avatar.jpg') }}" style="width: 50px"
                                     class="img-profile  rounded-circle" alt="">
-                                <span></span>
+                                <span>{{ Auth::user()->name != null ? Auth::user()->name : Auth::user()->nickname }}</span>
                             </a>
                             <div class="dropdown-menu m-0 bg-secondary rounded-0">
                                 <a href="#" class="dropdown-item my-2">Edit Profile</a>
@@ -96,9 +94,7 @@
     <!-- Navbar End -->
 
 
-
     <!-- Fruits Shop Start-->
-
 
     @yield('content')
 

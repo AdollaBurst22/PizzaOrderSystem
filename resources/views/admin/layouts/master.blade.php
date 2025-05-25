@@ -37,7 +37,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Code Lab Studio</div>
+                <div class="sidebar-brand-text mx-3">Nyein's POS</div>
             </a>
 
             <!-- Divider -->
@@ -45,15 +45,18 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href=""><i class="fas fa-fw fa-table"></i><span>Dashboard </span></a>
+                <a class="nav-link" href="{{ route('admin#mainDashboard') }}"><i
+                        class="fas fa-fw fa-table"></i><span>Dashboard </span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href=""><i class="fa-solid fa-circle-plus"></i></i><span>Category </span></a>
+                <a class="nav-link" href="{{ route('admin#categoryList') }}"><i
+                        class="fa-solid fa-circle-plus"></i></i><span>Category </span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href=""><i class="fa-solid fa-plus"></i></i><span>Add Products </span></a>
+                <a class="nav-link" href="{{ route('admin.productCreate') }}"><i
+                        class="fa-solid fa-plus"></i></i><span>Add Products </span></a>
             </li>
 
             <li class="nav-item">
@@ -111,8 +114,9 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Code Lab</span>
-                                <img class="img-profile rounded-circle" src="">
+                                <span
+                                    class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name != null ? Auth::user()->name : Auth::user()->nickname }}</span>
+                                <img class="img-profile rounded-circle" src="{{ asset('user/img/avatar.jpg') }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -158,7 +162,6 @@
 
                 @yield('content')
 
-                Here .................
 
                 <!-- Bootstrap core JavaScript-->
                 <script src="{{ asset('admin/vendor/jquery/jquery.min.js') }}"></script>
@@ -180,7 +183,10 @@
                 <script src="{{ asset('admin/js/demo/chart-area-demo.js') }}"></script>
                 <script src="{{ asset('admin/js/demo/chart-pie-demo.js') }}"></script>
 
-
+                <!--Sweet Alert-->
+                @include('sweetalert::alert')
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                @yield('js-script')
 </body>
 
 </html>
