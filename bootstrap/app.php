@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Foundation\Application;
+use App\Http\Middleware\UserMiddleware;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\SuperadminMiddleware;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use App\Http\Middleware\AdminMiddleware;
-use App\Http\Middleware\UserMiddleware;
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
@@ -15,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'adminMiddleware' => AdminMiddleware::class,
             'userMiddleware' => UserMiddleware::class,
+            'superadminMiddleware' => SuperadminMiddleware::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

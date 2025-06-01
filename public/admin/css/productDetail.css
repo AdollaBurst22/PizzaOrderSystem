@@ -1,0 +1,31 @@
+/* Custom styles for a cleaner look */
+.product-image-container {
+    max-width: 400px; /* Limit image size */
+    margin: 0 auto 1.5rem auto; /* Center image and add bottom margin */
+    border: 1px solid #e0e0e0; /* Light border around image */
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa; /* Light background for image area */
+  }
+  .product-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain; /* Ensure image fits without cropping */
+  }
+  .detail-label {
+    font-weight: 600; /* Make labels slightly bolder */
+    color: #495057; /* Darker text for labels */
+  }
+  .detail-value {
+    color: #212529; /* Standard text color for values */
+  }
+  .card-header-custom {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  }

@@ -21,7 +21,9 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('admin/css/sb-admin-2.css') }}" rel="stylesheet">
-
+    <!--Custom Product detail page Css -->
+    <link rel="stylesheet" href="{{ asset('admin/css/productDetail.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/css/customAdded.css') }}">
 </head>
 
 <body id="page-top">
@@ -60,15 +62,16 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href=""><i class="fa-solid fa-layer-group"></i><span>Product List </span></a>
+                <a class="nav-link" href="{{ route('admin.productList') }}"><i
+                        class="fa-solid fa-layer-group"></i><span>Product List </span></a>
             </li>
 
-
-            <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-credit-card"></i></i><span>Payment Method
-                    </span></a>
-            </li>
-
+            @if (Auth::user()->role == 'superadmin')
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fa-solid fa-credit-card"></i></i><span>Payment Method
+                        </span></a>
+                </li>
+            @endif
             <li class="nav-item">
                 <a class="nav-link" href="#"><i class="fa-solid fa-list"></i><span>Sale Information </span></a>
             </li>
@@ -79,7 +82,8 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href=""><i class="fa-solid fa-lock"></i></i></i><span>Change Password
+                <a class="nav-link" href="{{ route('admin.passwordChange') }}"><i
+                        class="fa-solid fa-lock"></i></i></i><span>Change Password
                     </span></a>
             </li>
 
@@ -115,33 +119,34 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span
-                                    class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name != null ? Auth::user()->name : Auth::user()->nickname }}</span>
-                                <img class="img-profile rounded-circle" src="{{ asset('user/img/avatar.jpg') }}">
+                                    class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name != null ? (Auth::user()->nickname != null ? Auth::user()->name . ' (' . Auth::user()->nickname . ')' : Auth::user()->name) : Auth::user()->nickname }}</span>
+                                <img class="img-profile rounded-circle"
+                                    src="{{ asset(Auth::user()->profile != null ? 'admin/profileImages/' . Auth::user()->profile : 'user/img/avatar.jpg') }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="">
+                                <a class="dropdown-item" href="{{ route('admin.profileUpdate') }}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
+                                @if (Auth::user()->role == 'superadmin')
+                                    <a class="dropdown-item" href="{{ route('superadmin.newAdminCreate') }}">
+                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Add New Admin Account
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('superadmin.adminList') }}">
+                                        <i class="fas fa-users fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Admin List
+                                    </a>
 
-                                <a class="dropdown-item" href="">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Add New Admin Account
-                                </a>
-                                <a class="dropdown-item" href="">
-                                    <i class="fas fa-users fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Admin List
-                                </a>
+                                    <a class="dropdown-item" href="">
+                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        User List
+                                    </a>
+                                @endif
 
-                                <a class="dropdown-item" href="">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    User List
-                                </a>
-
-
-                                <a class="dropdown-item" href="">
+                                <a class="dropdown-item" href="{{ route('admin.passwordChange') }}">
                                     <i class="fa-solid fa-lock fa-sm fa-fw mr-2 text-gray-400"></i></i></i>
                                     Change Password
                                 </a>
@@ -187,6 +192,16 @@
                 @include('sweetalert::alert')
                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                 @yield('js-script')
+                <script>
+                    function loadFile(event) {
+                        var reader = new FileReader();
+                        reader.onload = function() {
+                            var output = document.getElementById('output');
+                            output.src = reader.result;
+                        }
+                        reader.readAsDataURL(event.target.files[0]);
+                    }
+                </script>
 </body>
 
 </html>
