@@ -64,7 +64,13 @@ Route::prefix('superadmin')->middleware('superadminMiddleware')->group(function 
 
         //See the admin list
         Route::get('/adminlist',[SuperadminController::class, 'adminList'])->name('superadmin.adminList');
+        //Delete the admin account Route
         Route::get('/admindelete/{accountId}', [SuperadminController::class, 'adminDelete'])->name('superadmin.adminDelete');
+        //View the admin account details route
+        Route::get('/adminaccount/view/{accountId}',[SuperadminController::class, 'adminAccountView'])->name('superadmin.adminAccountView');
+        //Edit the admin account route
+        Route::get('/adminaccount/update/{accountId}',[SuperadminController::class,'adminAccountUpdate'])->name('superadmin.adminAccountUpdate');
+        Route::post('/adminaccount/update/{accountId}',[SuperadminController::class,'adminAccountUpdateStore'])->name('superadmin.adminAccountUpdateStore');
 
         //See the User list
         Route::get('/userlist', [SuperadminController::class, 'userList'])->name('superadmin.userList');

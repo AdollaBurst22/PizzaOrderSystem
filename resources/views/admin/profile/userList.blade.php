@@ -4,13 +4,12 @@
     <div class="container">
         <div class=" d-flex justify-content-between my-2">
             <div>
-                <a href="{{ route('superadmin.adminList') }}"> <button class=" btn btn-sm btn-secondary  "> Admin
-                        List</button>
+                <a href="{{ route('superadmin.userList') }}"> <button class=" btn btn-sm btn-secondary  "> User List</button>
                 </a>
-                <button class="btn btn-sm btn-secondary">Total Admin Count ({{ $totalAdmin }})</button>
+                <button class="btn btn-sm btn-secondary">Total User Count ({{ $totalAdmin }})</button>
             </div>
             <div class="">
-                <form action="{{ route('superadmin.adminList') }}" method="get">
+                <form action="{{ route('superadmin.userList') }}" method="get">
 
                     <div class="input-group">
                         <input type="text" name="searchKey" value="{{ request('searchKey') }}" class=" form-control"
@@ -34,14 +33,13 @@
                                 <th class="truncate-one-line">Email</th>
                                 <th class="truncate-two-line">Address</th>
                                 <th class="truncate-one-line">Phone</th>
-                                <th class="truncate-one-line">Role</th>
                                 <th class="truncate-one-line">Platform</th>
                                 <th class="truncate-one-line">Created Date</th>
                                 <th class="truncate-one-line">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($adminAccounts as $account)
+                            @foreach ($userAccounts as $account)
                                 <tr>
 
                                     <td class="truncate-one-line">
@@ -65,14 +63,7 @@
                                     <td class="truncate-one-line">
                                         {{ $account->phone ?? '-' }}
                                     </td>
-                                    <td class="truncate-one-line">
-                                        @if ($account->role == 'superadmin')
-                                            <span
-                                                class="btn btn-sm bg-danger text-white rounded shadow-sm">{{ $account->role }}</span>
-                                        @else
-                                            {{ $account->role }}
-                                        @endif
-                                    </td>
+
                                     <td class="truncate-two-lines">
                                         @if ($account->provider == 'google')
                                             <i class="fa-brands fa-google text-primary"></i>
@@ -89,23 +80,19 @@
                                     </td>
                                     <td class="truncate-one-line">
 
-                                        <a href="{{ route('superadmin.adminAccountView', $account->id) }}"
+                                        <a href="{{ route('superadmin.userAccountView', $account->id) }}"
                                             class="btn btn-sm btn-outline-primary"> <i class="fa-solid fa-eye"></i>
                                         </a>
-                                        <a href="{{ route('superadmin.adminAccountUpdate', $account->id) }}"
-                                            class="btn btn-sm btn-outline-secondary"> <i
-                                                class="fa-solid fa-pen-to-square"></i> </a>
-                                        @if ($account->role != 'superadmin')
-                                            <button type="button" class="btn btn-sm btn-outline-danger"
-                                                onclick="deleteProduct({{ $account->id }})">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        @endif
+
+                                        <button type="button" class="btn btn-sm btn-outline-danger"
+                                            onclick="deleteProduct({{ $account->id }})">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
                                     </td>
 
                                 </tr>
                             @endforeach
-                            @if (count($adminAccounts) == 0)
+                            @if (count($userAccounts) == 0)
                                 <tr>
                                     <td colspan="10">
                                         <h5 class="text-muted text-center">There is no admin account.</h5>
@@ -115,7 +102,7 @@
                         </tbody>
                     </table>
                 </div>
-                <span class="d-fles justify-content-end">{{ $adminAccounts->links() }}</span>
+                <span class="d-fles justify-content-end">{{ $userAccounts->links() }}</span>
 
             </div>
         </div>
@@ -141,7 +128,7 @@
                         icon: "success"
                     });
                     setInterval(() => {
-                        location.href = '/superadmin/profile/admindelete/' + $accountId
+                        location.href = '/superadmin/profile/userdelete/' + $accountId
                     }, 1000);
                 }
             });
