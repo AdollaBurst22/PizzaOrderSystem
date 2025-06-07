@@ -23,7 +23,8 @@
     <link href="{{ asset('admin/css/sb-admin-2.css') }}" rel="stylesheet">
     <!--Custom Product detail page Css -->
     <link rel="stylesheet" href="{{ asset('admin/css/productDetail.css') }}">
-    <link rel="stylesheet" href="{{ asset('admin/css/customAdded.css') }}">
+    <!--
+    <link rel="stylesheet" href="{{ asset('admin/css/customAdded.css') }}"> -->
 </head>
 
 <body id="page-top">
@@ -68,7 +69,8 @@
 
             @if (Auth::user()->role == 'superadmin')
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fa-solid fa-credit-card"></i></i><span>Payment Method
+                    <a class="nav-link" href="{{ route('superadmin.paymentMethodList') }}"><i
+                            class="fa-solid fa-credit-card"></i></i><span>Payment Method
                         </span></a>
                 </li>
             @endif
@@ -135,12 +137,14 @@
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Add New Admin Account
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('superadmin.adminList') }}">
+                                    <a class="dropdown-item"
+                                        href="{{ route('superadmin.accountList', ['accountType' => 'admin']) }}">
                                         <i class="fas fa-users fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Admin List
                                     </a>
 
-                                    <a class="dropdown-item" href="">
+                                    <a class="dropdown-item"
+                                        href="{{ route('superadmin.accountList', ['accountType' => 'user']) }}">
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         User List
                                     </a>

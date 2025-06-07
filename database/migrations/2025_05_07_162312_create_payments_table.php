@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('account_number');
+            $table->string('account_number', 20);
             $table->string('account_name', 100);
             $table->string('account_type', 100);
             $table->timestamps();

@@ -62,18 +62,18 @@ Route::prefix('superadmin')->middleware('superadminMiddleware')->group(function 
         Route::get('/newadmin',[SuperadminController::class, 'newAdminCreate'])->name('superadmin.newAdminCreate');
         Route::post('/newadmin', [SuperadminController::class, 'newAdminStore'])->name('superadmin.newAdminStore');
 
-        //See the admin list
-        Route::get('/adminlist',[SuperadminController::class, 'adminList'])->name('superadmin.adminList');
+        //See the admin list // User List,User View, User Delete use the same url as admin account
+        Route::get('/accountlist/{accountType}',[SuperadminController::class, 'accountList'])->name('superadmin.accountList');
+
         //Delete the admin account Route
-        Route::get('/admindelete/{accountId}', [SuperadminController::class, 'adminDelete'])->name('superadmin.adminDelete');
+        Route::get('/accountdelete/{accountId}', [SuperadminController::class, 'accountDelete'])->name('superadmin.accountDelete');
+
         //View the admin account details route
-        Route::get('/adminaccount/view/{accountId}',[SuperadminController::class, 'adminAccountView'])->name('superadmin.adminAccountView');
+        Route::get('/account/view/{accountId}',[SuperadminController::class, 'accountView'])->name('superadmin.accountView');
+
         //Edit the admin account route
         Route::get('/adminaccount/update/{accountId}',[SuperadminController::class,'adminAccountUpdate'])->name('superadmin.adminAccountUpdate');
         Route::post('/adminaccount/update/{accountId}',[SuperadminController::class,'adminAccountUpdateStore'])->name('superadmin.adminAccountUpdateStore');
-
-        //See the User list
-        Route::get('/userlist', [SuperadminController::class, 'userList'])->name('superadmin.userList');
 
     });
 
@@ -81,10 +81,15 @@ Route::prefix('superadmin')->middleware('superadminMiddleware')->group(function 
     Route::prefix('paymentmethod')->group(function(){
 
         //See the available Payment Methos
-        Route::get('/create',[SuperadminController::class, 'paymentMethodCreate'])->name('superadmin.paymentMethodCreate');
+        Route::get('/list',[SuperadminController::class, 'paymentMethodList'])->name('superadmin.paymentMethodList');
 
-        //Payment Methods List
-        Route::get('/list', [SuperadminController::class, 'paymentMethodList'])->name('superadmin.paymentMethodList');
+        Route::post('/create',[SuperadminController::class,'paymentMethodCreate'])->name('superadmin.paymentMethodCreate');
+        Route::get('/delete/{methodId}',[SuperadminController::class, 'paymentMethodDelete'])->name('superadmin.paymentMethodDelete');
+
+        Route::get('/update/{methodId}',[SuperadminController::class,'paymentMethodUpdate'])->name('superadmin.paymentMethodUpdate');
+
+        Route::post('/update',[SuperadminController::class,'paymentMethodUpdateStore'])->name('superadmin.paymentMethodUpdateStore');
+
     });
 
 });

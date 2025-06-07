@@ -6,7 +6,7 @@
             <div class="col-6 offset-3 card p-3 shadow-sm rounded">
 
                 <div class=" d-flex justify-content-end">
-                    <a href="{{ route('superadmin.adminList') }}"
+                    <a href="{{ route('superadmin.accountList', ['accountType' => 'admin']) }}"
                         class=" btn bg-danger my-2 w-50 rounded shadow-sm text-white"> <i class="fa-solid fa-users"></i> Admin
                         List</a>
                 </div>

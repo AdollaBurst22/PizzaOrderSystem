@@ -78,7 +78,7 @@ class ProductController extends Controller
             unlink(public_path('admin/products/'.$product->image));
         };
         Product::destroy($productId);
-        return back();
+        return to_route('admin.productList');
     }
     //product Update
     public function productUpdate($productId){

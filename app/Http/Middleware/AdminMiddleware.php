@@ -16,6 +16,21 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if(Auth::user()){   //after login
+            if(Auth::user()->role == 'admin' || Auth::user()->role == 'superadmin'){
+                if($request->route()->getName() == 'login' || $request->route()->getName() == 'register'){
+                    return back();
+                }else{
+                    return $next($request);
+                }
+            }else{
+                return back();
+            }
+        }else{ //before login => can access login and register page
+            return $next($request);
+        }
+        /*
+
         if(Auth::user()->role == 'superadmin' || Auth::user()->role == 'admin'){
             return $next($request);
         }
@@ -28,8 +43,10 @@ class AdminMiddleware
         // Redirect to user home page with error message
         return redirect()->route('user#homePage')
             ->with('error', 'You do not have permission to access this page.');
+        */
     }
 
+    /*
     private function isAsset($url)
     {
         $assetExtensions = ['jpg', 'jpeg', 'png', 'gif', 'css', 'js', 'ico', 'svg'];
@@ -38,4 +55,5 @@ class AdminMiddleware
 
         return in_array(strtolower($extension), $assetExtensions);
     }
+    */
 }

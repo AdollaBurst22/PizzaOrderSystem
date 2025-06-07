@@ -4,14 +4,14 @@
     <div class="container">
         <div class=" d-flex justify-content-between my-2">
             <div>
-                <a href="{{ route('superadmin.adminList') }}"> <button class=" btn btn-sm btn-secondary  "> Admin
+                <a href="{{ route('superadmin.accountList', ['accountType' => 'admin']) }}"> <button
+                        class=" btn btn-sm btn-secondary  "> Admin
                         List</button>
                 </a>
-                <button class="btn btn-sm btn-secondary">Total Admin Count ({{ $totalAdmin }})</button>
+                <button class="btn btn-sm btn-secondary">Total Admin Count ({{ $totalAccounts }})</button>
             </div>
             <div class="">
-                <form action="{{ route('superadmin.adminList') }}" method="get">
-
+                <form action="{{ route('superadmin.accountList', ['accountType' => 'admin']) }}" method="get">
                     <div class="input-group">
                         <input type="text" name="searchKey" value="{{ request('searchKey') }}" class=" form-control"
                             placeholder="Enter Search Key...">
@@ -23,49 +23,51 @@
         </div>
         <div class="row">
             <div class="col">
-                <div class="table-responsive" style="overflow-x: auto;">
-                    <table class="table table-hover shadow-sm" style="min-width: 1200px;">
+                <div class="table-responsive">
+                    <table class="table table-hover shadow-sm">
                         <thead class="bg-primary text-white">
                             <tr>
-                                <th class="truncate-one-line">ID</th>
-                                <th class="truncate-one-line">Profile</th>
-                                <th class="truncate-one-line">Name</th>
-                                <th class="truncate-one-line">Nickname</th>
-                                <th class="truncate-one-line">Email</th>
-                                <th class="truncate-two-line">Address</th>
-                                <th class="truncate-one-line">Phone</th>
-                                <th class="truncate-one-line">Role</th>
-                                <th class="truncate-one-line">Platform</th>
-                                <th class="truncate-one-line">Created Date</th>
-                                <th class="truncate-one-line">Action</th>
+                                <th class="text-nowrap">ID</th>
+                                <th class="text-nowrap">Profile</th>
+                                <th class="text-nowrap">Name</th>
+                                <th class="text-nowrap">Nickname</th>
+                                <th class="text-nowrap">Email</th>
+                                <th class="text-nowrap">Address</th>
+                                <th class="text-nowrap">Phone</th>
+                                <th class="text-nowrap">Role</th>
+                                <th class="text-nowrap">Platform</th>
+                                <th class="text-nowrap">Created Date</th>
+                                <th class="text-nowrap">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($adminAccounts as $account)
+                            @foreach ($accounts as $account)
                                 <tr>
-
-                                    <td class="truncate-one-line">
+                                    <td class="text-nowrap text-truncate" style="max-width: 50px;">
                                         {{ $account->id ?? '-' }}
                                     </td>
-                                    <td class="truncate-one-line"><img
-                                            src="{{ asset($account->profile != null ? 'admin/profileImages/' . $account->profile : 'admin/profileImages/no image.webp') }}"
-                                            alt="profileImage" class="img-thumbnail shadow-sm"></td>
-                                    <td class="truncate-one-line">
+                                    <td class="text-nowrap">
+                                        <img src="{{ asset($account->profile != null ? 'admin/profileImages/' . $account->profile : 'admin/profileImages/no image.webp') }}"
+                                            alt="profileImage" class="img-thumbnail shadow-sm"
+                                            style="height: 50px; width: 50px; object-fit: cover;">
+                                    </td>
+                                    <td class="text-nowrap text-truncate" style="max-width: 200px;">
                                         {{ $account->name ?? '-' }}
                                     </td>
-                                    <td class="truncate-one-line">
+                                    <td class="text-nowrap text-truncate" style="max-width: 300px;">
                                         {{ $account->nickname ?? '-' }}
                                     </td>
-                                    <td class="truncate-one-line">
+                                    <td class="text-nowrap text-truncate" style="max-width: 300px;">
                                         {{ $account->email ?? '-' }}
                                     </td>
-                                    <td class="truncate-two-lines">
+                                    <td class="text-truncate"
+                                        style="max-width: 350px; max-height: 3em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
                                         {{ $account->address ?? '-' }}
                                     </td>
-                                    <td class="truncate-one-line">
+                                    <td class="text-nowrap text-truncate" style="max-width: 200px;">
                                         {{ $account->phone ?? '-' }}
                                     </td>
-                                    <td class="truncate-one-line">
+                                    <td class="text-nowrap">
                                         @if ($account->role == 'superadmin')
                                             <span
                                                 class="btn btn-sm bg-danger text-white rounded shadow-sm">{{ $account->role }}</span>
@@ -73,7 +75,7 @@
                                             {{ $account->role }}
                                         @endif
                                     </td>
-                                    <td class="truncate-two-lines">
+                                    <td class="text-nowrap">
                                         @if ($account->provider == 'google')
                                             <i class="fa-brands fa-google text-primary"></i>
                                         @endif
@@ -84,12 +86,11 @@
                                             <i class="fa-solid fa-right-to-bracket text-primary"></i>
                                         @endif
                                     </td>
-                                    <td class="truncate-one-line">
+                                    <td class="text-nowrap text-truncate" style="max-width: 100px;">
                                         {{ $account->created_at->format('d F Y') }}
                                     </td>
-                                    <td class="truncate-one-line">
-
-                                        <a href="{{ route('superadmin.adminAccountView', $account->id) }}"
+                                    <td class="text-nowrap">
+                                        <a href="{{ route('superadmin.accountView', $account->id) }}"
                                             class="btn btn-sm btn-outline-primary"> <i class="fa-solid fa-eye"></i>
                                         </a>
                                         <a href="{{ route('superadmin.adminAccountUpdate', $account->id) }}"
@@ -102,10 +103,9 @@
                                             </button>
                                         @endif
                                     </td>
-
                                 </tr>
                             @endforeach
-                            @if (count($adminAccounts) == 0)
+                            @if (count($accounts) == 0)
                                 <tr>
                                     <td colspan="10">
                                         <h5 class="text-muted text-center">There is no admin account.</h5>
@@ -115,7 +115,7 @@
                         </tbody>
                     </table>
                 </div>
-                <span class="d-fles justify-content-end">{{ $adminAccounts->links() }}</span>
+                <span class="d-fles justify-content-end">{{ $accounts->links() }}</span>
 
             </div>
         </div>
@@ -141,7 +141,7 @@
                         icon: "success"
                     });
                     setInterval(() => {
-                        location.href = '/superadmin/profile/admindelete/' + $accountId
+                        location.href = '/superadmin/profile/accountdelete/' + $accountId
                     }, 1000);
                 }
             });

@@ -15,7 +15,8 @@
                             {{ $admin->name != null ? ($admin->nickname != null ? $admin->name . ' (' . $admin->nickname . ')' : $admin->name) : $admin->nickname }}
                             =><span class="text-danger"> {{ $admin->role }}</span>
                         </h6>
-                        <a href="{{ route('superadmin.adminList') }}" class="btn btn-secondary btn-sm me-5">
+                        <a href="{{ route('superadmin.accountList', ['accountType' => 'admin']) }}"
+                            class="btn btn-secondary btn-sm me-5">
                             <i class="fas fa-arrow-left me-1"></i> Back
                         </a>
                     </div>

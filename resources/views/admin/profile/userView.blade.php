@@ -6,7 +6,7 @@
             <div class="col-lg-8 col-md-10">
                 <div class="card shadow-sm rounded">
                     <div class="card-header-custom bg-light">
-                        <a href="{{ route('superadmin.accountList', ['accountType' => 'admin']) }}"
+                        <a href="{{ route('superadmin.accountList', ['accountType' => 'user']) }}"
                             class="btn btn-secondary btn-sm me-5">
                             <i class="fas fa-arrow-left me-1"></i> Back
                         </a>
@@ -16,7 +16,7 @@
                         <div class="product-image-container">
 
                             <img class="product-image" id="output"
-                                src="{{ asset($account->profile != null ? 'admin/profileImages/' . $account->profile : 'admin/profileImages/no image.webp') }}"
+                                src="{{ $account->profile != null && file_exists(public_path('admin/profileImages/' . $account->profile)) ? asset('admin/profileImages/' . $account->profile) : asset('admin/profileImages/no image.webp') }}"
                                 alt="Profile Image" />
                         </div>
 
