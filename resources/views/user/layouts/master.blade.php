@@ -42,11 +42,10 @@
 
     <!-- Navbar start -->
     <div class="container-fluid fixed-top">
-
         <div class="container px-0">
             <nav class="navbar navbar-light bg-white navbar-expand-xl">
-                <a href="index.html" class="navbar-brand">
-                    <h1 class="text-primary display-6">Fruitables</h1>
+                <a href="{{ route('user.homePage') }}" class="navbar-brand">
+                    <h1 class="text-primary display-6">AZURE Shop</h1>
                 </a>
                 <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarCollapse">
@@ -69,13 +68,14 @@
                         </a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle my-auto mt-2" data-bs-toggle="dropdown">
-                                <img src=" {{ asset('user/img/avatar.jpg') }}" style="width: 50px"
-                                    class="img-profile  rounded-circle" alt="">
+                                <img src="{{ asset('user/profileImages/' . Auth::user()->profile) != null ? asset('user/profileImages/' . Auth::user()->profile) : asset('user/img/avatar.jpg') }}"
+                                    style="width: 50px; height:50px" class="img-profile  rounded-circle" alt="">
                                 <span>{{ Auth::user()->name != null ? Auth::user()->name : Auth::user()->nickname }}</span>
                             </a>
                             <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                                <a href="#" class="dropdown-item my-2">Edit Profile</a>
-                                <a href="#" class="dropdown-item my-2">Change Password</a>
+                                <a href="{{ route('user.profileEdit') }}" class="dropdown-item my-2">Edit Profile</a>
+                                <a href="{{ route('user.changePassword') }}" class="dropdown-item my-2">Change
+                                    Password</a>
                                 <a href="#" class="dropdown-item my-2">
                                     <form action="{{ route('logout') }}" method="POST">
                                         @csrf
@@ -95,7 +95,6 @@
 
 
     <!-- Fruits Shop Start-->
-
     @yield('content')
 
 
@@ -190,8 +189,8 @@
                             Name</a>, All right reserved.</span>
                 </div>
                 <div class="col-md-6 my-auto text-center text-md-end text-white">
-                    <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
-                    <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
+                    <!--/*** This template is free as long as you keep the below author's credit link/attribution link/backlink. ***/-->
+                    <!--/*** If you'd like to use the template without the below author's credit link/attribution link/backlink, ***/-->
                     <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
                     Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a> Distributed By <a
                         class="border-bottom" href="https://themewagon.com">ThemeWagon</a>
@@ -219,6 +218,20 @@
     <script src="{{ asset('user/lib/lightbox/js/lightbox.min.js') }}"></script>
     <script src="{{ asset('user/lib/owlcarousel/owl.carousel.min.js') }}"></script>
 
+    <!-- Sweet Alert-->
+    @include('sweetalert::alert')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @yield('js-script')
+    <script>
+        function loadFile(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('output');
+                output.src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
 </body>
 
 </html>

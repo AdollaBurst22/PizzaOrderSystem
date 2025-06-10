@@ -36,7 +36,7 @@ class SocialLoginController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('user#homePage');
+        return redirect()->route('user.homePage');
 
     }
 };

@@ -41,7 +41,7 @@ class AdminMiddleware
         }
 
         // Redirect to user home page with error message
-        return redirect()->route('user#homePage')
+        return redirect()->route('user.homePage')
             ->with('error', 'You do not have permission to access this page.');
         */
     }
