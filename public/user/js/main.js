@@ -26,10 +26,10 @@
             } else {
                 $('.fixed-top').removeClass('shadow').css('top', 0);
             }
-        } 
+        }
     });
-    
-    
+
+
    // Back to top button
    $(window).scroll(function () {
     if ($(this).scrollTop() > 300) {
@@ -78,6 +78,38 @@
     });
 
 
+    // Initialize Owl Carousel
+    $(document).ready(function() {
+        if ($('.vegetable-carousel').length) {
+            $('.vegetable-carousel').owlCarousel({
+                loop: true,
+                margin: 20,
+                nav: false,
+                dots: true,
+                autoplay: true,
+                autoplayTimeout: 3000,
+                autoplayHoverPause: true,
+                smartSpeed: 1000,
+                slideTransition: 'linear',
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    576: {
+                        items: 1
+                    },
+                    768: {
+                        items: 1
+                    },
+                    992: {
+                        items: 1
+                    }
+                }
+            });
+        }
+    });
+
+/*
     // vegetable carousel
     $(".vegetable-carousel").owlCarousel({
         autoplay: true,
@@ -111,7 +143,7 @@
         }
     });
 
-
+*/
     // Modal Video
     $(document).ready(function () {
         var $videoSrc;

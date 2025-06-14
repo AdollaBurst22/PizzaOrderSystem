@@ -116,7 +116,7 @@
                             </div>
 
                             <input type="submit" value="Update" class="btn btn-primary mt-3">
-                            <a href="{{ route('user.homePage') }}" class="btn btn-danger mt-3">Cancel</a>
+                            <a href="{{ route('user.homePage') }}" class="btn btn-danger mt-3">Back</a>
                         </div>
                     </div>
                 </div>

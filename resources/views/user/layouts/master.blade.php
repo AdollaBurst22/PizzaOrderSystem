@@ -32,6 +32,14 @@
     <!-- Template Stylesheet -->
     <link href="{{ asset('user/css/style.css') }}" rel="stylesheet">
 
+    <!--  Custom style sheet for rating stars & Related Products Carousel -->
+    <link rel="stylesheet" href="{{ asset('user/css/custom.css') }}">
+
+    <!-- Add these lines in the head section -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
 </head>
 
 <body>
@@ -53,7 +61,7 @@
                 </button>
                 <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                     <div class="navbar-nav mx-auto">
-                        <a href="" class="nav-item nav-link ">Shop</a>
+                        <a href="{{ route('user.homePage') }}" class="nav-item nav-link ">Shop</a>
                         <a href="" class="nav-item nav-link">Cart</a>
                         <a href="#" class="nav-item nav-link">Contact</a>
 
@@ -70,7 +78,7 @@
                             <a href="#" class="nav-link dropdown-toggle my-auto mt-2" data-bs-toggle="dropdown">
                                 <img src="{{ asset('user/profileImages/' . Auth::user()->profile) != null ? asset('user/profileImages/' . Auth::user()->profile) : asset('user/img/avatar.jpg') }}"
                                     style="width: 50px; height:50px" class="img-profile  rounded-circle" alt="">
-                                <span>{{ Auth::user()->name != null ? Auth::user()->name : Auth::user()->nickname }}</span>
+                                <span>{{ Auth::user()->name ?? Auth::user()->nickname }}</span>
                             </a>
                             <div class="dropdown-menu m-0 bg-secondary rounded-0">
                                 <a href="{{ route('user.profileEdit') }}" class="dropdown-item my-2">Edit Profile</a>
@@ -221,6 +229,7 @@
     <!-- Sweet Alert-->
     @include('sweetalert::alert')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @stack('scripts')
     @yield('js-script')
     <script>
         function loadFile(event) {
@@ -232,6 +241,11 @@
             reader.readAsDataURL(event.target.files[0]);
         }
     </script>
+
+    <!-- Add these lines before closing body tag, after all other scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="{{ asset('user/js/main.js') }}"></script>
 </body>
 
 </html>
