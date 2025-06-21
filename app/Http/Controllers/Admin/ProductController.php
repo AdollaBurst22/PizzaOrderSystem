@@ -50,7 +50,7 @@ class ProductController extends Controller
                   ->orWhere('categories.name', 'like', '%'.request('searchKey').'%');
         })
         ->orderBy('created_at','desc')
-        ->paginate(10);
+        ->paginate(5);
 
         $totalProducts = Product::count();
 

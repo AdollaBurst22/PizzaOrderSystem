@@ -19,12 +19,12 @@
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
+
     <!-- Custom styles for this template-->
     <link href="{{ asset('admin/css/sb-admin-2.css') }}" rel="stylesheet">
     <!--Custom Product detail page Css -->
     <link rel="stylesheet" href="{{ asset('admin/css/productDetail.css') }}">
-    <!--
-    <link rel="stylesheet" href="{{ asset('admin/css/customAdded.css') }}"> -->
+
 </head>
 
 <body id="page-top">
@@ -75,11 +75,13 @@
                 </li>
             @endif
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa-solid fa-list"></i><span>Sale Information </span></a>
+                <a class="nav-link" href="{{ route('admin.saleList') }}"><i class="fa-solid fa-list"></i><span>Sale
+                        Information </span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href=""><i class="fa-solid fa-cart-shopping"></i><span>Order Board
+                <a class="nav-link" href="{{ route('admin.orderList') }}"><i
+                        class="fa-solid fa-cart-shopping"></i><span>Order Board
                     </span></a>
             </li>
 

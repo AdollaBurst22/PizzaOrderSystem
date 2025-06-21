@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\SaleInformation;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -49,6 +51,22 @@ Route::prefix('admin')->middleware('adminMiddleware')->group(function () {
         //Profile Update
         Route::get('/update', [ProfileController::class, 'profileUpdate'])->name('admin.profileUpdate');
         Route::post('/update', [ProfileController::class, 'profileUpdateStore'])->name('admin.profileUpdateStore');
+    });
+
+    //Order Route Group
+    Route::prefix('order')->group(function () {
+        Route::get('/list',[OrderController::class,'orderList'])->name('admin.orderList');
+        Route::get('/details/{orderCode}',[OrderController::class,'orderDetails'])->name('admin.orderDetails');
+        Route::get('/reject',[OrderController::class,'orderReject'])->name('admin.orderReject');
+        Route::post('/statusupdate', [OrderController::class, 'updateStatus'])->name('admin.orderStatusUpdate');
+        Route::get('/confirm',[OrderController::class,'orderConfirm'])->name('admin.orderConfirm');
+
+    });
+
+    //Sale Information Route group
+    Route::prefix('sale-info')->group(function(){
+        Route::get('/list',[SaleInformation::class,'saleList'])->name('admin.saleList');
+        Route::get('/details/{orderCode}',[SaleInformation::class,'saleDetails'])->name('admin.saleDetails');
     });
 
 });

@@ -44,10 +44,10 @@
                                     <i class="fa-regular fa-star text-secondary"></i>
                                 @endfor
                             </div>
-                            <form action="" method="post">
-
-                                <input type="hidden" name="userId" value="">
-                                <input type="hidden" name="productId" value="">
+                            <form action="{{ route('user.cartStore') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="userId" value="{{ Auth::user()->id }}">
+                                <input type="hidden" name="productId" value="{{ $product->id }}">
                                 <div class="input-group quantity mb-5" style="width: 100px;">
                                     <div class="input-group-btn">
                                         <button type="button" class="btn btn-sm btn-minus rounded-circle bg-light border">
@@ -244,9 +244,12 @@
                         <div class="border border-primary rounded position-relative vesitable-item"
                             style="max-width: 400px; margin: 0 auto;">
                             <div class="vesitable-img">
-                                <img src="{{ asset('admin/products/' . $relatedProduct->image) }}"
-                                    style="height: 300px; object-fit: cover;" class="img-fluid w-100 rounded-top"
-                                    alt="">
+                                <a href="{{ route('user.productDetails', $relatedProduct->id) }}">
+                                    <img src="{{ asset('admin/products/' . $relatedProduct->image) }}"
+                                        style="height: 300px; object-fit: cover;" class="img-fluid w-100 rounded-top"
+                                        alt="">
+                                </a>
+
                             </div>
                             <div class="text-white bg-primary px-3 py-1 rounded position-absolute"
                                 style="top: 10px; right: 10px;">{{ $relatedProduct->category_name }}</div>
@@ -256,9 +259,19 @@
                                     {{ Str::words($relatedProduct->description, 10, '...') }}</p>
                                 <div class="d-flex justify-content-between flex-lg-wrap">
                                     <p class="text-dark fs-5 fw-bold mb-3">{{ $relatedProduct->price }} mmk</p>
-                                    <a href=""
-                                        class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i
-                                            class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                    <div class="text-start mb-2">
+                                        <form action="{{ route('user.cartStore') }}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="productId" value="{{ $relatedProduct->id }}">
+                                            <input type="hidden" name="userId" value="{{ Auth::user()->id }}">
+                                            <input type="hidden" name="count" value="1">
+
+                                            <button type="submit"
+                                                class="btn border border-secondary rounded-pill px-3 mt-2 fs-6 text-primary"><i
+                                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to
+                                                cart</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -5,15 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Contact extends Model
+class PaymentHistory extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'user_id',
-        'user_name',
-        'user_email',
-        'title',
-        'message',
+        'phone',
+        'address',
+        'payslip_image',
+        'payment_method',
+        'order_code',
+        'total_amount'
     ];
 }

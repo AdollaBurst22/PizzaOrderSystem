@@ -4,7 +4,7 @@
     <div class="container-fluid mt-5 pt-5">
 
         <!-- Page Heading -->
-        <div class="mt-5">
+        <div class="mt-5 mb-5">
             <div class="row">
                 <div class="col-8 offset-2">
 

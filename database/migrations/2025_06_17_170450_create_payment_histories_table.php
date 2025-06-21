@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contacts', function (Blueprint $table) {
+        Schema::create('payment_histories', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->text('user_name');
-            $table->text('user_email');
-            $table->string('title', 100)->nullable();
-            $table->longText('message');
+            $table->string('phone', 20);
+            $table->text('address');
+            $table->string('payslip_image', 255)->nullable();
+            $table->string('payment_method', 255);
+            $table->string('order_code', 50);
+            $table->integer('total_amount');
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('contacts');
+        Schema::dropIfExists('payment_histories');
     }
 };

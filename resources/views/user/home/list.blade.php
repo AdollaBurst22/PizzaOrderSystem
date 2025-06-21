@@ -115,10 +115,18 @@
                                                 <p class="text-dark fs-6 fw-bold mb-1 text-start">{{ $product->price }} mmk
                                                 </p>
                                                 <div class="text-start">
-                                                    <a href="#"
-                                                        class="btn border border-secondary rounded-pill px-3 mt-2 fs-6 text-primary"><i
-                                                            class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                        cart</a>
+                                                    <form action="{{ route('user.cartStore') }}" method="post">
+                                                        @csrf
+                                                        <input type="hidden" name="productId" value="{{ $product->id }}">
+                                                        <input type="hidden" name="userId"
+                                                            value="{{ Auth::user()->id }}">
+                                                        <input type="hidden" name="count" value="1">
+
+                                                        <button type="submit"
+                                                            class="btn border border-secondary rounded-pill px-3 mt-2 fs-6 text-primary"><i
+                                                                class="fa fa-shopping-bag me-2 text-primary"></i> Add to
+                                                            cart</button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>

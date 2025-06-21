@@ -2,13 +2,19 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\Cart;
+use App\Models\Order;
 use App\Models\Rating;
 use App\Models\Comment;
+use App\Models\Contact;
+use App\Models\Payment;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\PaymentHistory;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
@@ -137,4 +143,159 @@ class UserController extends Controller
     Alert::success('Rating', 'Your have successfully rated the product!');
     return back();
     }
+
+    //Direct to Cart Page
+    public function cartCreate(){
+        $cartProducts = Cart::leftJoin('products','carts.product_id','products.id')
+            ->where('carts.user_id',Auth::user()->id)
+            ->select('carts.*','products.name as product_name','products.price as product_price','products.image as product_image')
+            ->get();
+        return view('user.home.cart',compact('cartProducts'));
+    }
+    //Add products to Cart
+    public function cartStore(Request $request){
+        Cart::updateOrCreate([
+            'user_id' => $request->userId,
+            'product_id' => $request->productId
+        ], [
+            'quantity' => $request->count
+        ]);
+        Alert::success('Added To Cart', 'Your have successfully added the product to your shopping cart!');
+        return back();
+    }
+
+    //Update cart quantities
+    public function updateCart(Request $request) {
+        try {
+            $updates = $request->updates;
+
+            if (!$updates) {
+                return response()->json(['success' => false, 'message' => 'No updates provided'], 400);
+            }
+            //Save the data from the cart in the session to use for payment and order rendering
+            Session::put('tempOrder', $updates);
+
+            foreach ($updates as $update) {
+                if (!isset($update['cartId']) || !isset($update['quantity'])) {
+                    return response()->json(['success' => false, 'message' => 'Invalid update data'], 400);
+                }
+
+                Cart::where('id', $update['cartId'])
+                    ->where('user_id', Auth::user()->id)
+                    ->update(['quantity' => $update['quantity']]);
+            }
+
+
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            logger('Cart update error: ' . $e->getMessage());
+            return response()->json(['success' => false, 'message' => 'An error occurred while updating cart'], 500);
+        }
+    }
+
+    //Remove item from cart
+    public function removeFromCart($cartId) {
+        Cart::where('id', $cartId)
+            ->where('user_id', Auth::user()->id)
+            ->delete();
+
+        return response()->json(['success' => true]);
+    }
+
+    //Direct to payment page (will use the data saved in the session named as tempOrder)
+    public function paymentCreate(){
+        $paymentMethods = Payment::orderBy('account_type')->get();
+        $order = Session::get('tempOrder');
+        return view('user.home.payment',compact('order','paymentMethods'));
+    }
+
+    //Payment Store
+    public function paymentStore(Request $request){
+        $request->validate(
+            [
+                'phone' => 'required|min:5|max:20',
+                'address' => 'required|min:5',
+                'paymentType' => 'required',
+                'payslipImage' => 'required|file|mimes:jpeg,png,jpg,gif,webp,csv,svg',
+            ],
+            [
+                'phone.required' => 'Please enter your phone number to contact.',
+                'address.required' => 'Please enter your address to deliver to.'
+            ]
+            );
+        $payslipImage = $request->file('payslipImage');
+        $payslipImageName = uniqid() . '_' . $payslipImage->getClientOriginalName();
+        $payslipImage->move(public_path('payslipImages'), $payslipImageName);
+
+        $data = [
+            'user_id' => Auth::user()->id,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'payslip_image' => $payslipImageName,
+            'payment_method' => $request->paymentType,
+            'order_code' => $request->orderCode,
+            'total_amount' => $request->totalAmount
+        ];
+        PaymentHistory::create($data);
+
+        //Create an order
+        $orderData = Session::get('tempOrder');
+        foreach($orderData as $item){
+            $data = [
+                'user_id' => Auth::user()->id,
+                'product_id' => $item['productId'],
+                'count' => $item['quantity'],
+                'total_price' => $item['total'],
+                'status' => $item['status'],
+                'order_code' => $item['orderCode'],
+            ];
+            Order::create($data);
+        };
+        Cart::where('user_id',Auth::user()->id)->delete();
+        Session::forget('tempOrder');
+
+        Alert::success('Order', 'Your have successfully placed your order. Thank you for shopping with us!');
+
+        //Redirect to order page after payment
+        return to_route('user.orderPage');
+    }
+
+    //Direct to Order Page
+    public function orderPage(){
+        // Get unique order codes with their details
+        $orders = Order::select('order_code', 'status', 'created_at')
+            ->where('user_id', Auth::user()->id)
+            ->groupBy('order_code')
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('user.home.order', compact('orders'));
+    }
+
+    //Direct To Contact Us Page
+    public function contactPage(){
+        return view('user.home.contact');
+    }
+
+    //Store the messages from users
+    public function message(Request $request){
+        $request->validate(
+            [
+                'name' => 'required|min:3|max:50',
+                'email' => 'required|min:3|max:50',
+                'subject' => 'required|min:3|max:50',
+                'message' => 'required|min:3'
+            ]
+        );
+        $data = [
+            'user_id' => Auth::user()->id,
+            'user_name' => $request->name,
+            'user_email' => $request->email,
+            'title' => $request->subject,
+            'message' => $request->message,
+        ];
+        Contact::create($data);
+        Alert::success('Message', 'Thank you for reaching out to us!');
+        return back();
+    }
+
 }

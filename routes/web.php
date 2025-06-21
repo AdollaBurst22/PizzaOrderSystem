@@ -27,4 +27,5 @@ Route::get('/auth/{provider}/redirect', [SocialLoginController::class, 'socialRe
 
 Route::get('/auth/{provider}/callback', [SocialLoginController::class, 'socialCallback'])->name('socialCallback');
 
+
 require __DIR__.'/auth.php';
