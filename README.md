@@ -6,18 +6,27 @@ A full-featured, Shopping web application built with PHP, Blade, SCSS, CSS, and 
 
 ## 🚀 Features
 
-- User-friendly shopping interface
-- Dynamic shopping cards with customizable products and details
-- Secure user authentication and registration
-- Order history and status tracking
-- Responsive design for mobile and desktop
-- Admin dashboard for managing items and orders
-- Real-time order
+-   User-friendly shopping interface
+-   Dynamic shopping cards with customizable products and details
+-   Secure user authentication and registration
+-   Order history and status tracking
+-   Responsive design for mobile and desktop
+-   Admin dashboard for managing items and orders
+-   Real-time order
 
 ---
 
-## 🛠 Tech Stack
+## Screenshots
 
+### 🛡️ Admin Side
+
+|(public/admin/screeenshots/admin_dashboard.png) | (public/admin/screeenshots/product_management.png) | (public/admin/screeenshots/order_list.png) |
+
+### 👤 User Side
+
+| (public/user/screenshots/user_home.png) | (public/user/screenshots/product_details.png) | (public/user/screenshots/cart_checkout.png) |
+
+## 🛠 Tech Stack
 
 <p align="left">
   <img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP" />
@@ -30,12 +39,12 @@ A full-featured, Shopping web application built with PHP, Blade, SCSS, CSS, and 
   <img src="https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white" alt="jQuery" />
 </p>
 
-| Technology    | Usage           |
-| ------------- | --------------- |
-| PHP/Laravel           | Backend logic   |
-| Blade         | Templating      |
-| SCSS/CSS/Bootstrap      | Styling         |
-| JavaScript/Jquery(AJAX)    | Interactivity   |
+| Technology              | Usage         |
+| ----------------------- | ------------- |
+| PHP/Laravel             | Backend logic |
+| Blade                   | Templating    |
+| SCSS/CSS/Bootstrap      | Styling       |
+| JavaScript/Jquery(AJAX) | Interactivity |
 
 ---
 
@@ -43,10 +52,10 @@ A full-featured, Shopping web application built with PHP, Blade, SCSS, CSS, and 
 
 ### Prerequisites
 
-- PHP 8.x+
-- Composer
-- Node.js & npm
-- (Optional) MySQL or SQLite for database
+-   PHP 8.x+
+-   Composer
+-   Node.js & npm
+-   (Optional) MySQL or SQLite for database
 
 ### Installation
 
@@ -82,3 +91,4 @@ PizzaOrderSystem/
 ├── package.json
 ├── composer.json
 └── ...
+```
