@@ -21,12 +21,16 @@ A full-featured, Shopping web application built with PHP, Blade, SCSS, CSS, and 
 ## Screenshots
 
 ### Admin Side
-![Admin Dashboard](public/admin/screenshots/admin-dashboard.png)
-![Admin Orders](public/screenshots/admin/admin-orders.png)
+
+![Admin Product List](public/admin/screenshots/productListA_POS.png)
+![Admin Profile](public/admin/screenshots/profileA_POS.png)
+![Admin Orders](public/admin/screenshots/orderDetailsA_POS.png)
 
 ### User Side
-![User Homepage](public/screenshots/user/user-homepage.png)
-![User Order Page](public/screenshots/user/user-order.png)
+
+![User Homepage](public/admin/screenshots/userhomePOS.png)
+![User Order Page](public/admin/screenshots/productdetailsPOS.png)
+
 ## 🛠 Tech Stack
 
 <p align="left">
