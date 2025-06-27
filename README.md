@@ -20,20 +20,15 @@ A full-featured, Shopping web application built with PHP, Blade, SCSS, CSS, and 
 
 ### Admin Side
 
-<!-- Admin Section -->
-<div style="display: flex; gap: 10px; margin-bottom: 20px;">
-  <img src="public/admin/screenshots/productListA_POS.png" alt="Admin Product List" style="width:50%;">
-  <img src="public/admin/screenshots/profileA_POS.png" alt="Admin Profile" style="width:50%;">
-  <img src="public/admin/screenshots/orderDetailsA_POS.png" alt="Admin Orders" style="width:50%;">
-</div>
+| Product List                                                         | Profile                                                     |
+| -------------------------------------------------------------------- | ----------------------------------------------------------- |
+| ![Admin Product List](public/admin/screenshots/productListA_POS.png) | ![Admin Profile](public/admin/screenshots/profileA_POS.png) |
 
 ### User Side
 
-<div style="display: flex; gap: 10px;">
-  <img src="public/admin/screenshots/userhomePOS.png" alt="User Homepage" style="width:50%;">
-  <img src="public/admin/screenshots/productdetailsPOS.png" alt="User Order Page" style="width:50%;">
-</div>
-
+| Homepage                                                   | Product Details                                                    |
+| ---------------------------------------------------------- | ------------------------------------------------------------------ |
+| ![User Homepage](public/admin/screenshots/userhomePOS.png) | ![User Order Page](public/admin/screenshots/productdetailsPOS.png) |
 
 ## 🛠 Tech Stack
 
@@ -65,5 +60,3 @@ A full-featured, Shopping web application built with PHP, Blade, SCSS, CSS, and 
 -   Composer
 -   Node.js & npm
 -   (Optional) MySQL or SQLite for database
-
-
